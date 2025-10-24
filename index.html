@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <title>IEEE Style Paper Checker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- ฟอนต์ไทย Sarabun -->
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- สไตล์หลัก -->
+  <link rel="stylesheet" href="./styles.css" />
+
+  <!-- Markdown renderer + Sanitizer -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <h1>IEEE Style Paper Checker</h1>
+    <p class="subtitle">อัปโหลด PDF แล้วตรวจรูปแบบตามมาตรฐาน IEEE แบบรวดเร็ว</p>
+  </header>
+
+  <main class="layout">
+    <!-- คอลัมน์ซ้าย: อัปโหลด + ผลลัพธ์ -->
+    <section class="left-panel">
+      <div class="panel" aria-labelledby="uploadTitle">
+        <h2 id="uploadTitle">ตั้งค่าและอัปโหลดเอกสาร</h2>
+
+        <label for="apiKey">รหัสผู้ใช้งาน</label>
+        <input id="apiKey" type="password" placeholder="กรอกรหัสผู้ใช้งาน" autocomplete="off" />
+
+        <label for="pdfFile">เลือกไฟล์ PDF ของบทความ</label>
+        <input id="pdfFile" type="file" accept="application/pdf" />
+
+        <button id="analyzeBtn" class="primary">เริ่มตรวจรูปแบบ</button>
+      </div>
+
+      <div class="panel" aria-labelledby="resultTitle">
+        <h2 id="resultTitle">ผลการตรวจเอกสาร</h2>
+
+        <!-- แอนิเมชันรอประมวลผล (ซ่อนไว้เริ่มต้น) -->
+        <div id="loadingArea" class="loading-area" hidden>
+          <div class="spinner" role="status" aria-live="polite"></div>
+          <div class="loading-msg" id="loadingMsg">กำลังประมวลผลเอกสาร …</div>
+          <div class="skeleton s1"></div>
+          <div class="skeleton s2"></div>
+          <div class="skeleton-box"></div>
+        </div>
+
+        <!-- ปุ่มดาวน์โหลด CSV -->
+        <div class="result-toolbar">
+          <button id="downloadCsvBtn" class="ghost" disabled>ดาวน์โหลด CSV ตาราง Mapping</button>
+        </div>
+
+        <!-- บริเวณแสดงผลลัพธ์ (Markdown → HTML) -->
+        <article id="resultRender" class="result render"></article>
+      </div>
+    </section>
+
+    <!-- คอลัมน์ขวา: Log -->
+    <section class="panel right-panel" aria-labelledby="logTitle">
+      <h2 id="logTitle">สถานะระบบ</h2>
+      <pre id="log" class="log"></pre>
+    </section>
+  </main>
+
+  <!-- สคริปต์หลัก -->
+  <script type="module" src="./app.js"></script>
+
+  <!-- ข้อความมาตรการความปลอดภัย -->
+  <footer class="site-footer">
+    <p class="safety-note">
+      มาตรการรักษาความปลอดภัย: เอกสารที่อัปโหลดเข้าสู่ระบบจะไม่ถูกเก็บ หรือส่งต่อไปใช้ในการฝึกโมเดล
+    </p>
+  </footer>
+</body>
+</html>
